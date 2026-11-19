@@ -1,0 +1,892 @@
+o <!DOCTYPE html>
+        <html lang="id" class="scroll-smooth">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>BOS DAGING - Supplier Daging Sapi & Pangan Berkualitas</title>
+            
+            <!-- Google Fonts: Source Serif 4 untuk Judul/Brand & Inter untuk Teks -->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,600;0,8..60,700;0,8..60,800;1,8..60,600&display=swap" rel="stylesheet">
+            
+            <!-- Font Awesome untuk Ikon -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+            
+            <!-- Tailwind CSS -->
+            <script src="https://cdn.tailwindcss.com"></script>
+            <script>
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            fontFamily: {
+                                serif: ['"Source Serif 4"', 'serif'],
+                                sans: ['"Inter"', 'sans-serif'],
+                            },
+                            colors: {
+                                meat: {
+                                    50: '#fef2f2',
+                                    100: '#fee2e2',
+                                    200: '#fecaca',
+                                    500: '#ef4444',
+                                    600: '#dc2626',
+                                    700: '#b91c1c',
+                                    800: '#991b1b',
+                                    900: '#7f1d1d',
+                                    950: '#450a0a',
+                                }
+                            },
+                            animation: {
+                                'float': 'float 3s ease-in-out infinite',
+                                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                            },
+                            keyframes: {
+                                float: {
+                                    '0%, 100%': { transform: 'translateY(0)' },
+                                    '50%': { transform: 'translateY(-8px)' },
+                                }
+                            }
+                        }
+                    }
+                }
+            </script>
+
+            <style>
+                /* Kustomisasi Scrollbar & Efek Animasi Gulir (Scroll Reveal) */
+                ::-webkit-scrollbar {
+                    width: 8px;
+                }
+                ::-webkit-scrollbar-track {
+                    background: #fef2f2;
+                }
+                ::-webkit-scrollbar-thumb {
+                    background: #991b1b;
+                    border-radius: 9999px;
+                }
+                ::-webkit-scrollbar-thumb:hover {
+                    background: #7f1d1d;
+                }
+
+                /* Animasi Splash Screen Logo */
+                @keyframes logoEntrance {
+                    0% {
+                        opacity: 0;
+                        transform: scale(0.6) translateY(20px);
+                    }
+                    60% {
+                        opacity: 1;
+                        transform: scale(1.05) translateY(0);
+                    }
+                    100% {
+                        opacity: 1;
+                        transform: scale(1) translateY(0);
+                    }
+                }
+
+                .animate-logo-intro {
+                    animation: logoEntrance 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+                }
+
+                /* Efek Gulir (Scroll Reveal) */
+                .reveal {
+                    opacity: 0;
+                    transform: translateY(30px);
+                    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+                }
+                .reveal.active {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+
+                /* Pola Marbling Daging Halus untuk Background */
+                .meat-pattern {
+                    background-color: #ffffff;
+                    background-image: radial-gradient(#fee2e2 1.5px, transparent 1.5px), radial-gradient(#fecaca 1.5px, #ffffff 1.5px);
+                    background-size: 40px 40px;
+                    background-position: 0 0, 20px 20px;
+                }
+            </style>
+        </head>
+        <body class="font-sans text-gray-800 bg-white antialiased selection:bg-meat-800 selection:text-white overflow-x-hidden">
+
+            <!-- ==================== SPLASH SCREEN / ANIMASI LOGO MASUK ==================== -->
+            <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-meat-950 via-meat-900 to-meat-800 text-white transition-opacity duration-700">
+                <div class="animate-logo-intro flex flex-col items-center text-center px-6">
+                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-full p-1.5 bg-white shadow-2xl mb-5 overflow-hidden ring-4 ring-meat-500/50">
+                        <img src="gambar1.jpeg" 
+                            onerror="this.onerror=null; this.src='https://placehold.co/300x300/991b1b/ffffff?text=BOS+DAGING';" 
+                            alt="Logo BOS DAGING" 
+                            class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h1 class="font-serif text-4xl md:text-5xl font-extrabold tracking-wider text-white drop-shadow-md">
+                        BOS DAGING
+                    </h1>
+                    <p class="mt-2 text-meat-200 text-sm md:text-base tracking-widest uppercase font-medium">
+                        Kualitas Premium • Segar • Terpercaya
+                    </p>
+                    <div class="mt-6 w-48 h-1.5 bg-meat-950 rounded-full overflow-hidden">
+                        <div id="splash-progress" class="h-full bg-white rounded-full transition-all duration-1000 w-0"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== HEADER / NAVBAR ==================== -->
+            <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-meat-100 shadow-sm transition-all duration-300">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between py-3 md:py-4">
+                        
+                        <!-- Kiri: Kontak Cepat & Instagram -->
+                        <div class="hidden md:flex items-center space-x-3 w-1/3">
+                            <a href="https://wa.me/6282364664642" target="_blank" rel="noopener noreferrer" 
+                            class="inline-flex items-center gap-2 text-sm font-semibold text-meat-800 hover:text-meat-600 transition">
+                                <span class="w-8 h-8 rounded-full bg-meat-50 flex items-center justify-center text-meat-700">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                </span>
+                                <span>0823-6466-4642</span>
+                            </a>
+                            <a href="https://www.instagram.com/pt.bosdagingindonesia?jplx=cjBpMHA1d2lyZDc2&utm_source=qr" target="_blank" rel="noopener noreferrer" 
+                            aria-label="Instagram PT Bos Daging Indonesia"
+                            class="inline-flex items-center gap-1.5 text-sm font-semibold text-pink-700 hover:text-pink-600 transition">
+                                <span class="w-8 h-8 rounded-full bg-pink-50 flex items-center justify-center text-pink-600">
+                                    <i class="fab fa-instagram text-lg"></i>
+                                </span>
+                            </a>
+                        </div>
+
+                        <!-- Tengah: Logo & Tulisan BOS DAGING (Source Serif 4) -->
+                        <a href="#" class="flex flex-col items-center justify-center mx-auto group">
+                            <div class="w-14 h-14 md:w-16 md:h-16 rounded-full p-1 bg-gradient-to-tr from-meat-800 to-meat-500 shadow-md group-hover:scale-105 transition-transform duration-300">
+                                <img src="gambar1.jpeg" 
+                                    onerror="this.onerror=null; this.src='https://placehold.co/200x200/991b1b/ffffff?text=BD';" 
+                                    alt="Logo Bos Daging" 
+                                    class="w-full h-full object-cover rounded-full bg-white">
+                            </div>
+                            <span class="font-serif text-xl md:text-2xl font-extrabold tracking-wide text-meat-900 mt-1 group-hover:text-meat-700 transition-colors">
+                                BOS DAGING
+                            </span>
+                        </a>
+
+                        <!-- Kanan: Tombol Keranjang & Hubungi -->
+                        <div class="flex items-center justify-end gap-2 sm:gap-3 md:w-1/3">
+                            <a href="https://wa.me/6282364664642" target="_blank" rel="noopener noreferrer"
+                            class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white text-xs md:text-sm font-semibold shadow-sm transition transform hover:-translate-y-0.5">
+                                <i class="fab fa-whatsapp text-base"></i>
+                                <span>Chat Penjual</span>
+                            </a>
+
+                            <button onclick="toggleCart()" aria-label="Buka Keranjang Belanja"
+                                    class="relative p-2.5 sm:px-4 sm:py-2 rounded-full bg-meat-800 hover:bg-meat-900 text-white font-semibold shadow-md transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                                <i class="fas fa-shopping-basket text-base"></i>
+                                <span class="hidden sm:inline text-sm">Keranjang</span>
+                                <span id="cart-badge" class="absolute -top-1.5 -right-1.5 sm:static sm:ml-1 bg-white text-meat-900 text-xs font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow">
+                                    0
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Navigasi Tab Utama -->
+                    <nav class="flex items-center justify-center gap-2 sm:gap-6 pb-3 pt-1 overflow-x-auto no-scrollbar">
+                        <button onclick="switchMainTab('katalog')" id="nav-katalog"
+                                class="tab-btn active px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all bg-meat-800 text-white shadow-sm whitespace-nowrap">
+                            <i class="fas fa-drumstick-bite mr-1.5"></i>Katalog Produk
+                        </button>
+                        <button onclick="switchMainTab('perusahaan')" id="nav-perusahaan"
+                                class="tab-btn px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all text-gray-600 hover:text-meat-800 hover:bg-meat-50 whitespace-nowrap">
+                            <i class="fas fa-building mr-1.5"></i>Tentang Perusahaan
+                        </button>
+                        <button onclick="switchMainTab('lokasi')" id="nav-lokasi"
+                                class="tab-btn px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold transition-all text-gray-600 hover:text-meat-800 hover:bg-meat-50 whitespace-nowrap">
+                            <i class="fas fa-map-marker-alt mr-1.5"></i>Lokasi & Maps
+                        </button>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- ==================== HERO BANNER ==================== -->
+            <section class="relative bg-gradient-to-br from-meat-950 via-meat-900 to-meat-800 text-white overflow-hidden">
+                <!-- Dekorasi Latar -->
+                <div class="absolute inset-0 opacity-15 pointer-events-none">
+                    <div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-white blur-3xl"></div>
+                    <div class="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-red-500 blur-3xl"></div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 text-center lg:text-left reveal active">
+                            <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 border border-white/20 text-meat-100 text-xs font-semibold uppercase tracking-wider mb-4">
+                                <span class="w-2 h-2 rounded-full bg-green-400 animate-ping"></span>
+                                100% Halal • Higienis • Kualitas Terbaik
+                            </span>
+                            <h1 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+                                Segarnya Daging Pilihan Terbaik dari <span class="text-red-300 underline decoration-red-500/60">BOS DAGING</span>
+                            </h1>
+                            <p class="mt-4 text-meat-100 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                                Menyediakan berbagai potongan daging sapi premium, beef slice ala restoran, hingga daging rendang pilihan. Siap kirim cepat untuk kebutuhan rumah tangga maupun mitra bisnis Anda.
+                            </p>
+                            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
+                                <a href="#konten-utama" onclick="switchMainTab('katalog')"
+                                class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white text-meat-900 hover:bg-meat-50 font-bold text-sm sm:text-base shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    <span>Belanja Sekarang</span>
+                                    <i class="fas fa-arrow-down text-xs"></i>
+                                </a>
+                                <a href="https://wa.me/6282364664642?text=Halo%20BOS%20DAGING,%20saya%20ingin%20bertanya%20tentang%20produk%20daging." 
+                                target="_blank" rel="noopener noreferrer"
+                                class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-green-600 hover:bg-green-500 text-white font-bold text-sm sm:text-base shadow-lg transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    <i class="fab fa-whatsapp text-xl"></i>
+                                    <span>Hubungi Penjual</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Kartu Highlight Visual -->
+                        <div class="lg:col-span-5 reveal active">
+                            <div class="relative mx-auto max-w-md bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-5 shadow-2xl animate-float">
+                                <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-meat-950 relative">
+                                    <img src="slice.jpeg" 
+                                        onerror="this.onerror=null; this.src='https://placehold.co/600x450/7f1d1d/ffffff?text=Premium+Beef+Slice';" 
+                                        alt="Daging Sapi Premium Bos Daging" 
+                                        class="w-full h-full object-cover">
+                                    <div class="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-sm text-gray-900 p-3 rounded-xl shadow-md flex items-center justify-between">
+                                        <div>
+                                            <p class="text-xs font-bold text-meat-700 uppercase">Best Seller</p>
+                                            <p class="font-serif font-bold text-base text-gray-900">Premium Beef Slice</p>
+                                        </div>
+                                        <span class="px-3 py-1 rounded-full bg-meat-800 text-white text-xs font-bold">
+                                            Ready Stock
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== KONTEN UTAMA (SISTEM TAB) ==================== -->
+            <main id="konten-utama" class="meat-pattern min-h-screen py-12 md:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <!-- Tab Bar Sekunder (Visual & Mudah Diakses) -->
+                    <div class="flex flex-wrap items-center justify-center gap-3 mb-10 reveal">
+                        <button onclick="switchMainTab('katalog')" id="subtab-katalog"
+                                class="subtab-btn px-6 py-3 rounded-2xl font-bold text-sm sm:text-base transition-all shadow-sm flex items-center gap-2 bg-meat-800 text-white ring-2 ring-meat-800">
+                            <i class="fas fa-store"></i>
+                            <span>Produk Pilihan</span>
+                        </button>
+                        <button onclick="switchMainTab('perusahaan')" id="subtab-perusahaan"
+                                class="subtab-btn px-6 py-3 rounded-2xl font-bold text-sm sm:text-base transition-all shadow-sm flex items-center gap-2 bg-white text-meat-900 hover:bg-meat-50 border border-meat-200">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Profil Perusahaan</span>
+                        </button>
+                        <button onclick="switchMainTab('lokasi')" id="subtab-lokasi"
+                                class="subtab-btn px-6 py-3 rounded-2xl font-bold text-sm sm:text-base transition-all shadow-sm flex items-center gap-2 bg-white text-meat-900 hover:bg-meat-50 border border-meat-200">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <span>Lokasi Toko & Maps</span>
+                        </button>
+                    </div>
+
+                    <!-- ==================== TAB 1: KATALOG PRODUK ==================== -->
+                    <section id="tab-content-katalog" class="tab-panel block">
+                        <div class="text-center max-w-2xl mx-auto mb-10 reveal">
+                            <h2 class="font-serif text-3xl sm:text-4xl font-extrabold text-meat-950">
+                                Katalog Produk Daging Pilihan
+                            </h2>
+                            <p class="mt-2 text-gray-600 text-sm sm:text-base">
+                                Pilih produk daging sapi favorit Anda, masukkan ke keranjang, atau pesan langsung melalui WhatsApp kami.
+                            </p>
+                        </div>
+
+                        <!-- Grid 4 Produk Utama -->
+                        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                            <!-- Kartu produk dirender melalui JavaScript agar sinkron dengan sistem keranjang -->
+                        </div>
+
+                        <!-- Banner Keunggulan Singkat -->
+                        <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 reveal">
+                            <div class="bg-white p-6 rounded-2xl border border-meat-100 shadow-sm flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-meat-100 text-meat-800 flex items-center justify-center shrink-0 text-xl">
+                                    <i class="fas fa-snowflake"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif font-bold text-lg text-gray-900">Penyimpanan Higienis</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Disimpan pada suhu cold storage standar industri untuk menjaga kesegaran dan nutrisi daging.</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-meat-100 shadow-sm flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-meat-100 text-meat-800 flex items-center justify-center shrink-0 text-xl">
+                                    <i class="fas fa-certificate"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif font-bold text-lg text-gray-900">100% Terjamin Halal</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Diproses sesuai syariat Islam dan standar keamanan pangan yang ketat.</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-2xl border border-meat-100 shadow-sm flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-meat-100 text-meat-800 flex items-center justify-center shrink-0 text-xl">
+                                    <i class="fas fa-truck-fast"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-serif font-bold text-lg text-gray-900">Layanan Bisnis & Retail</h3>
+                                    <p class="text-sm text-gray-600 mt-1">Melayani pembelian satuan rumah tangga, restoran, katering, hingga kemitraan agen.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ==================== TAB 2: TENTANG PERUSAHAAN ==================== -->
+                    <section id="tab-content-perusahaan" class="tab-panel hidden">
+                        <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border border-meat-100 overflow-hidden reveal active">
+                            <!-- Header Kartu Perusahaan -->
+                            <div class="bg-gradient-to-r from-meat-900 to-meat-700 px-6 sm:px-10 py-8 text-white flex flex-col sm:flex-row items-center gap-6">
+                                <div class="w-24 h-24 rounded-full p-1 bg-white shadow-lg shrink-0">
+                                    <img src="gambar1.jpeg" 
+                                        onerror="this.onerror=null; this.src='https://placehold.co/200x200/991b1b/ffffff?text=BOS+DAGING';" 
+                                        alt="Logo Bos Daging Indonesia" 
+                                        class="w-full h-full object-cover rounded-full">
+                                </div>
+                                <div class="text-center sm:text-left">
+                                    <span class="inline-block px-3 py-1 rounded-full bg-white/15 text-xs font-semibold tracking-wider uppercase mb-2">
+                                        Profil Resmi Perusahaan
+                                    </span>
+                                    <h2 class="font-serif text-2xl sm:text-3xl font-extrabold">
+                                        BOS DAGING INDONESIA
+                                    </h2>
+                                    <p class="text-meat-100 text-sm mt-1">
+                                        Mitra Terpercaya Penyedia Bahan Baku Pangan Berkualitas Sejak 2020
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Isi Deskripsi Perusahaan Sesuai Permintaan -->
+                            <div class="p-6 sm:p-10 space-y-6 text-gray-700 leading-relaxed text-base sm:text-lg">
+                                <p class="first-letter:text-5xl first-letter:font-serif first-letter:font-bold first-letter:text-meat-800 first-letter:mr-3 first-letter:float-left">
+                                    Bos Daging Indonesia adalah perusahaan penyedia bahan baku pangan yang berbasis di Jakarta, dengan spesialisasi utama pada komoditi daging sapi dan kerbau, serta dilengkapi dengan produk daging ayam, bebek, ikan, dan aneka seafood. Sejak berdiri pada tahun 2020, kami berkomitmen penuh untuk menjadi mitra terpercaya dalam memenuhi kebutuhan pasokan pangan berkualitas demi mendukung pertumbuhan dan keberlanjutan ekosistem bisnis pelanggan.
+                                </p>
+
+                                <div class="p-5 rounded-2xl bg-meat-50 border-l-4 border-meat-800 text-gray-800">
+                                    <p>
+                                        Sebagai entitas usaha yang kredibel, Bos Daging Indonesia telah memiliki legalitas resmi berdasarkan <strong>Akta Notaris Catur Virgo, SH., MH. Nomor 31 tanggal 25 Februari 2022</strong> yang berkedudukan di Jakarta. Selain berfokus pada layanan pengadaan skala bisnis, kami juga memiliki misi untuk menggerakkan ekonomi kerakyatan dengan membuka peluang kemitraan dan jaringan keagenan bagi masyarakat luas, khususnya di wilayah Jabodetabek dan sekitarnya.
+                                    </p>
+                                </div>
+
+                                <!-- Statistik & Legalitas Ringkas -->
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+                                    <div class="p-4 rounded-2xl bg-gray-50 border border-gray-100 text-center">
+                                        <div class="text-meat-800 font-serif font-extrabold text-2xl">2020</div>
+                                        <div class="text-xs text-gray-500 font-semibold uppercase mt-1">Tahun Berdiri</div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-gray-50 border border-gray-100 text-center">
+                                        <div class="text-meat-800 font-serif font-extrabold text-2xl">Jakarta</div>
+                                        <div class="text-xs text-gray-500 font-semibold uppercase mt-1">Kantor Pusat</div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-gray-50 border border-gray-100 text-center">
+                                        <div class="text-meat-800 font-serif font-extrabold text-2xl">Jabodetabek</div>
+                                        <div class="text-xs text-gray-500 font-semibold uppercase mt-1">Jaringan Kemitraan</div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-100">
+                                    <p class="text-sm text-gray-500 font-medium">
+                                        Tertarik bergabung menjadi mitra atau ikuti update terbaru kami?
+                                    </p>
+                                    <div class="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto">
+                                        <a href="https://www.instagram.com/pt.bosdagingindonesia?jplx=cjBpMHA1d2lyZDc2&utm_source=qr" 
+                                        target="_blank" rel="noopener noreferrer"
+                                        class="w-full sm:w-auto px-5 py-3 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-95 text-white font-semibold text-sm shadow transition flex items-center justify-center gap-2">
+                                            <i class="fab fa-instagram text-lg"></i>
+                                            <span>@pt.bosdagingindonesia</span>
+                                        </a>
+                                        <a href="https://wa.me/6282364664642?text=Halo%20BOS%20DAGING,%20saya%20tertarik%20mengetahui%20info%20kemitraan%20dan%20keagenan." 
+                                        target="_blank" rel="noopener noreferrer"
+                                        class="w-full sm:w-auto px-6 py-3 rounded-full bg-meat-800 hover:bg-meat-900 text-white font-semibold text-sm shadow transition flex items-center justify-center gap-2">
+                                            <i class="fab fa-whatsapp text-lg"></i>
+                                            <span>Info Kemitraan via WhatsApp</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ==================== TAB 3: LOKASI & MAPS ==================== -->
+                    <section id="tab-content-lokasi" class="tab-panel hidden">
+                        <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-xl border border-meat-100 overflow-hidden reveal active">
+                            <div class="p-6 sm:p-8 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-meat-100 text-meat-800 text-xs font-bold uppercase tracking-wider mb-2">
+                                        <i class="fas fa-location-dot"></i> Outlet & Titik Distribusi
+                                    </span>
+                                    <h2 class="font-serif text-2xl sm:text-3xl font-extrabold text-gray-900">
+                                        BOS DAGING CENGKARENG
+                                    </h2>
+                                    <p class="text-gray-600 text-sm mt-1">
+                                        Kunjungi langsung outlet kami atau pesan pengiriman instan ke lokasi Anda.
+                                    </p>
+                                </div>
+
+                                <div class="flex flex-wrap gap-3">
+                                    <a href="https://www.google.com/maps/place/BOS+DAGING+CENGKARENG/@-6.1462551,106.7347687,864m/data=!3m2!1e3!4b1!4m6!3m5!1s0x2e69f3f90325768f:0x4b5931e4e17ff29d!8m2!3d-6.1462551!4d106.7347687!16s%2Fg%2F11j_1h4bx7?entry=ttu&g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D" 
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="px-5 py-3 rounded-full bg-meat-800 hover:bg-meat-900 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+                                        <i class="fas fa-directions text-base"></i>
+                                        <span>Buka di Google Maps</span>
+                                    </a>
+                                    <a href="https://wa.me/6282364664642?text=Halo%20BOS%20DAGING%20Cengkareng,%20saya%20ingin%20bertanya%20rute%20dan%20jam%20buka%20toko." 
+                                    target="_blank" rel="noopener noreferrer"
+                                    class="px-5 py-3 rounded-full bg-green-600 hover:bg-green-700 text-white font-semibold text-sm shadow-md transition flex items-center gap-2">
+                                        <i class="fab fa-whatsapp text-base"></i>
+                                        <span>Tanya Admin Lokasi</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Preview Maps (Interactive Embed sesuai koordinat -6.1462551, 106.7347687) -->
+                            <div class="relative w-full h-[380px] sm:h-[460px] bg-gray-100">
+                                <iframe 
+                                    title="Preview Lokasi BOS DAGING CENGKARENG"
+                                    src="https://maps.google.com/maps?q=-6.1462551,106.7347687&hl=id&z=16&output=embed"
+                                    class="w-full h-full border-0"
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+
+                            <!-- Info Tambahan Bawah Maps -->
+                            <div class="p-6 bg-meat-50/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-sm text-gray-700">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-meat-800 text-white flex items-center justify-center shrink-0">
+                                        <i class="fas fa-map-pin"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-gray-900">Koordinat Lokasi: -6.1462551, 106.7347687</p>
+                                        <p class="text-xs text-gray-500">BOS DAGING CENGKARENG • Jakarta Barat, DKI Jakarta</p>
+                                    </div>
+                                </div>
+                                <a href="https://www.google.com/maps/place/BOS+DAGING+CENGKARENG/@-6.1462551,106.7347687,864m/data=!3m2!1e3!4b1!4m6!3m5!1s0x2e69f3f90325768f:0x4b5931e4e17ff29d!8m2!3d-6.1462551!4d106.7347687!16s%2Fg%2F11j_1h4bx7?entry=ttu&g_ep=EgoyMDI2MTExNi4wIKXMDSoASAFQAw%3D%3D"
+                                target="_blank" rel="noopener noreferrer"
+                                class="text-meat-800 font-bold hover:underline flex items-center gap-1">
+                                    <span>Lihat Peta Layar Penuh</span>
+                                    <i class="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+
+            <!-- ==================== DRAWER KERANJANG BELANJA ==================== -->
+            <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden transition-opacity opacity-0"></div>
+            
+            <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+                <!-- Header Keranjang -->
+                <div class="px-6 py-4 bg-meat-900 text-white flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fas fa-shopping-basket text-lg text-red-300"></i>
+                        <h3 class="font-serif text-xl font-bold">Keranjang Belanja</h3>
+                    </div>
+                    <button onclick="toggleCart()" aria-label="Tutup Keranjang" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Daftar Item Keranjang -->
+                <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                    <!-- Diisi dinamis oleh JS -->
+                </div>
+
+                <!-- Footer & Checkout WhatsApp -->
+                <div class="p-6 bg-gray-50 border-t border-gray-200 space-y-4">
+                    <div>
+                        <label for="customer-note" class="block text-xs font-semibold text-gray-600 uppercase mb-1">
+                            Catatan Pesanan / Alamat Kirim (Opsional)
+                        </label>
+                        <input type="text" id="customer-note" placeholder="Contoh: Kirim ke Cengkareng, potong tipis..." 
+                            class="w-full px-3.5 py-2.5 rounded-xl border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-meat-700">
+                    </div>
+
+                    <div class="flex items-center justify-between text-base font-bold text-gray-900 pt-1">
+                        <span>Total Item</span>
+                        <span id="cart-total-items" class="font-serif text-xl text-meat-800">0 Produk</span>
+                    </div>
+
+                    <button onclick="checkoutWhatsApp()" id="btn-checkout-wa"
+                            class="w-full py-3.5 px-5 rounded-full bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-bold text-sm sm:text-base shadow-lg transition flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                        <span>Tanya Harga & Pesan via WhatsApp</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- ==================== NOTIFIKASI TOAST ==================== -->
+            <div id="toast-notification" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 bg-gray-900 text-white px-5 py-3 rounded-full shadow-xl text-sm font-medium flex items-center gap-2.5 opacity-0 pointer-events-none transition-all duration-300 translate-y-4">
+                <i class="fas fa-check-circle text-green-400"></i>
+                <span id="toast-message">Produk ditambahkan ke keranjang</span>
+            </div>
+
+            <!-- ==================== TOMBOL MENGAMBANG WHATSAPP ==================== -->
+            <a href="https://wa.me/6282364664642?text=Halo%20BOS%20DAGING,%20saya%20ingin%20memesan%20daging." 
+            target="_blank" rel="noopener noreferrer"
+            aria-label="Hubungi Penjual via WhatsApp"
+            class="fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 bg-green-600 hover:bg-green-700 text-white px-4 py-3.5 rounded-full shadow-2xl transition-all duration-300 hover:scale-105">
+                <i class="fab fa-whatsapp text-2xl"></i>
+                <span class="font-bold text-sm pr-1">Hubungi Penjual</span>
+            </a>
+
+            <!-- ==================== FOOTER ==================== -->
+            <footer class="bg-meat-950 text-white pt-12 pb-8 border-t border-meat-900">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-meat-900">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3">
+                                <img src="gambar1.jpeg" 
+                                    onerror="this.onerror=null; this.src='https://placehold.co/100x100/991b1b/ffffff?text=BD';" 
+                                    alt="Logo Bos Daging" 
+                                    class="w-12 h-12 rounded-full object-cover bg-white p-0.5">
+                                <span class="font-serif text-2xl font-extrabold tracking-wide">BOS DAGING</span>
+                            </div>
+                            <p class="text-meat-200 text-sm leading-relaxed">
+                                Penyedia bahan baku daging sapi, kerbau, ayam, bebek, ikan, dan seafood berkualitas tinggi di Jakarta sejak 2020.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-serif font-bold text-lg mb-3 text-red-200">Navigasi Cepat</h4>
+                            <ul class="space-y-2 text-sm text-meat-200">
+                                <li><button onclick="switchMainTab('katalog'); window.scrollTo({top: 400, behavior: 'smooth'})" class="hover:text-white transition">Katalog Produk Daging</button></li>
+                                <li><button onclick="switchMainTab('perusahaan'); window.scrollTo({top: 400, behavior: 'smooth'})" class="hover:text-white transition">Profil Bos Daging Indonesia</button></li>
+                                <li><button onclick="switchMainTab('lokasi'); window.scrollTo({top: 400, behavior: 'smooth'})" class="hover:text-white transition">Lokasi BOS DAGING Cengkareng</button></li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-serif font-bold text-lg mb-3 text-red-200">Kontak & Media Sosial</h4>
+                            <p class="text-sm text-meat-200 mb-3">
+                                Siap melayani pesanan eceran maupun kemitraan bisnis Jabodetabek.
+                            </p>
+                            <div class="flex flex-wrap items-center gap-2.5">
+                                <a href="https://wa.me/6282364664642" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-green-600 hover:bg-green-500 text-white text-sm font-bold transition">
+                                    <i class="fab fa-whatsapp text-lg"></i>
+                                    <span>0823-6466-4642</span>
+                                </a>
+                                <a href="https://www.instagram.com/pt.bosdagingindonesia?jplx=cjBpMHA1d2lyZDc2&utm_source=qr" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-90 text-white text-sm font-bold transition">
+                                    <i class="fab fa-instagram text-lg"></i>
+                                    <span>@pt.bosdagingindonesia</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6 text-center text-xs text-meat-300">
+                        &copy; 2026 BOS DAGING INDONESIA. Hak Cipta Dilindungi Undang-Undang.
+                    </div>
+                </div>
+            </footer>
+
+            <!-- ==================== LOGIKA JAVASCRIPT ==================== -->
+            <script>
+                // Nomor WhatsApp Penjual (Format internasional 62 dari 082364664642 agar selalu terbuka mulus di aplikasi WA)
+                const SELLER_WA_NUMBER = "6282364664642";
+
+                // Data 4 Produk Utama sesuai nama file gambar yang diminta
+                const products = [
+                    {
+                        id: 1,
+                        name: "Beef Yoshinoya",
+                        weight: "500 gram / pack",
+                        image: "yoshiyona.jpeg",
+                        tag: "Favorit Shabu & Grill",
+                        description: "Irisan daging sapi berlemak gurih ala restoran Jepang, super empuk dan cepat matang."
+                    },
+                    {
+                        id: 2,
+                        name: "Beef Slice Reguler",
+                        weight: "500 gram / pack",
+                        image: "slice.jpeg",
+                        tag: "Best Seller",
+                        description: "Potongan daging sapi tipis serbaguna dengan perpaduan daging merah dan lemak yang pas."
+                    },
+                    {
+                        id: 3,
+                        name: "Beef Slice Teriyaki",
+                        weight: "500 gram / pack",
+                        image: "slice teriyaki.jpeg",
+                        tag: "Low Fat / Rendah Lemak",
+                        description: "Irisan daging sapi dengan kadar lemak lebih sedikit, cocok untuk tumis teriyaki dan bulgogi."
+                    },
+                    {
+                        id: 4,
+                        name: "Daging Sapi Rendang",
+                        weight: "1 kg / pack",
+                        image: "rendang.jpeg",
+                        tag: "Potongan Spesial",
+                        description: "Daging sapi pilihan tanpa banyak lemak, serat kokoh dan tidak mudah hancur saat dimasak lama."
+                    }
+                ];
+
+                // State Keranjang Belanja
+                let cart = [];
+
+                // Render Daftar Produk ke Halaman
+                function renderProducts() {
+                    const grid = document.getElementById('product-grid');
+                    grid.innerHTML = products.map((product, index) => {
+                        const waDirectText = encodeURIComponent(`Halo BOS DAGING, saya ingin menanyakan harga & memesan produk:\n- *${product.name}* (${product.weight})\n\nApakah stoknya tersedia?`);
+                        const waDirectLink = `https://wa.me/${SELLER_WA_NUMBER}?text=${waDirectText}`;
+
+                        return `
+                        <article class="reveal bg-white rounded-3xl border border-meat-100 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group" style="transition-delay: ${index * 100}ms">
+                            <!-- Gambar Produk -->
+                            <div class="relative aspect-square bg-meat-50 overflow-hidden">
+                                <img src="${product.image}" 
+                                    onerror="this.onerror=null; this.src='https://placehold.co/500x500/991b1b/ffffff?text=${encodeURIComponent(product.name)}';" 
+                                    alt="${product.name}" 
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-meat-900/90 backdrop-blur-xs text-white text-xs font-bold shadow">
+                                    ${product.tag}
+                                </span>
+                            </div>
+
+                            <!-- Detail Produk -->
+                            <div class="p-5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="text-xs font-semibold text-meat-700 uppercase tracking-wider mb-1">
+                                        ${product.weight}
+                                    </div>
+                                    <h3 class="font-serif text-xl font-extrabold text-gray-900 group-hover:text-meat-800 transition-colors">
+                                        ${product.name}
+                                    </h3>
+                                    <p class="text-gray-600 text-sm mt-2 leading-relaxed">
+                                        ${product.description}
+                                    </p>
+                                </div>
+
+                                <div class="mt-5 pt-4 border-t border-gray-100">
+                                    <!-- Tombol Aksi: Tambah Keranjang & Beli Langsung WA -->
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <button onclick="addToCart(${product.id})"
+                                                class="w-full py-2.5 px-4 rounded-xl bg-meat-800 hover:bg-meat-900 active:scale-95 text-white font-semibold text-sm transition flex items-center justify-center gap-2 shadow-sm">
+                                            <i class="fas fa-cart-plus"></i>
+                                            <span>+ Keranjang</span>
+                                        </button>
+                                        <a href="${waDirectLink}" target="_blank" rel="noopener noreferrer"
+                                        class="w-full py-2.5 px-4 rounded-xl bg-green-50 hover:bg-green-600 text-green-700 hover:text-white border border-green-200 hover:border-green-600 font-semibold text-sm transition flex items-center justify-center gap-2">
+                                            <i class="fab fa-whatsapp text-base"></i>
+                                            <span>Beli via WhatsApp</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        `;
+                    }).join('');
+                }
+
+                // Tambah Produk ke Keranjang
+                function addToCart(productId) {
+                    const product = products.find(p => p.id === productId);
+                    if (!product) return;
+
+                    const existingItem = cart.find(item => item.id === productId);
+                    if (existingItem) {
+                        existingItem.qty += 1;
+                    } else {
+                        cart.push({ ...product, qty: 1 });
+                    }
+
+                    updateCartUI();
+                    showToast(`"${product.name}" ditambahkan ke keranjang!`);
+                }
+
+                // Ubah Kuantitas di Keranjang
+                function changeQty(productId, delta) {
+                    const itemIndex = cart.findIndex(item => item.id === productId);
+                    if (itemIndex === -1) return;
+
+                    cart[itemIndex].qty += delta;
+                    if (cart[itemIndex].qty <= 0) {
+                        cart.splice(itemIndex, 1);
+                    }
+                    updateCartUI();
+                }
+
+                // Perbarui Tampilan Keranjang
+                function updateCartUI() {
+                    const badge = document.getElementById('cart-badge');
+                    const container = document.getElementById('cart-items-container');
+                    const totalItemsEl = document.getElementById('cart-total-items');
+                    const checkoutBtn = document.getElementById('btn-checkout-wa');
+
+                    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+
+                    badge.textContent = totalItems;
+                    totalItemsEl.textContent = `${totalItems} Produk`;
+
+                    if (cart.length === 0) {
+                        checkoutBtn.disabled = true;
+                        container.innerHTML = `
+                            <div class="h-full flex flex-col items-center justify-center text-center py-12 text-gray-400">
+                                <div class="w-20 h-20 rounded-full bg-meat-50 text-meat-300 flex items-center justify-center text-3xl mb-4">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </div>
+                                <p class="font-serif font-bold text-lg text-gray-700">Keranjang Masih Kosong</p>
+                                <p class="text-sm text-gray-500 mt-1 max-w-xs">Pilih produk daging sapi segar dari katalog untuk mulai berbelanja.</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    checkoutBtn.disabled = false;
+                    container.innerHTML = cart.map(item => `
+                        <div class="flex items-center gap-3.5 p-3.5 rounded-2xl bg-gray-50 border border-gray-100">
+                            <img src="${item.image}" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/100x100/991b1b/ffffff?text=BD';" 
+                                alt="${item.name}" 
+                                class="w-16 h-16 rounded-xl object-cover shrink-0 bg-white">
+                            <div class="flex-1 min-w-0">
+                                <h4 class="font-serif font-bold text-gray-900 text-sm truncate">${item.name}</h4>
+                                <p class="text-xs text-gray-500 mt-0.5">${item.weight}</p>
+                            </div>
+                            <div class="flex items-center gap-2 bg-white px-2 py-1 rounded-full border border-gray-200 shadow-2xs">
+                                <button onclick="changeQty(${item.id}, -1)" class="w-6 h-6 rounded-full hover:bg-meat-50 text-meat-800 font-bold text-xs flex items-center justify-center">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                                <button onclick="changeQty(${item.id}, 1)" class="w-6 h-6 rounded-full hover:bg-meat-50 text-meat-800 font-bold text-xs flex items-center justify-center">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+
+                // Buka / Tutup Drawer Keranjang
+                function toggleCart() {
+                    const drawer = document.getElementById('cart-drawer');
+                    const overlay = document.getElementById('cart-overlay');
+                    const isClosed = drawer.classList.contains('translate-x-full');
+
+                    if (isClosed) {
+                        overlay.classList.remove('hidden');
+                        setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+                        drawer.classList.remove('translate-x-full');
+                    } else {
+                        overlay.classList.add('opacity-0');
+                        drawer.classList.add('translate-x-full');
+                        setTimeout(() => overlay.classList.add('hidden'), 300);
+                    }
+                }
+
+                // Checkout Pesanan Keranjang ke WhatsApp
+                function checkoutWhatsApp() {
+                    if (cart.length === 0) return;
+
+                    const note = document.getElementById('customer-note').value.trim();
+                    const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+
+                    let message = "Halo *BOS DAGING*, saya ingin menanyakan harga & memesan produk berikut:\n\n";
+                    cart.forEach((item, idx) => {
+                        message += `${idx + 1}. *${item.name}* (${item.weight}) — Jumlah: ${item.qty}x\n`;
+                    });
+                    message += `\n*Total Pesanan: ${totalItems} Produk*`;
+                    if (note) {
+                        message += `\n*Catatan:* ${note}`;
+                    }
+                    message += "\n\nMohon info detail harga, ketersediaan, dan ongkos kirimnya. Terima kasih!";
+
+                    const url = `https://wa.me/${SELLER_WA_NUMBER}?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank', 'noopener,noreferrer');
+                }
+
+                // Navigasi Tab Utama (Katalog, Perusahaan, Lokasi)
+                function switchMainTab(tabName) {
+                    const tabs = ['katalog', 'perusahaan', 'lokasi'];
+
+                    tabs.forEach(t => {
+                        const panel = document.getElementById(`tab-content-${t}`);
+                        const navBtn = document.getElementById(`nav-${t}`);
+                        const subBtn = document.getElementById(`subtab-${t}`);
+
+                        if (t === tabName) {
+                            panel.classList.remove('hidden');
+                            panel.classList.add('block');
+
+                            // Aktifkan style tombol header
+                            navBtn.classList.add('bg-meat-800', 'text-white', 'shadow-sm');
+                            navBtn.classList.remove('text-gray-600', 'hover:text-meat-800', 'hover:bg-meat-50');
+
+                            // Aktifkan style tombol subtab
+                            subBtn.classList.add('bg-meat-800', 'text-white', 'ring-2', 'ring-meat-800');
+                            subBtn.classList.remove('bg-white', 'text-meat-900', 'hover:bg-meat-50', 'border', 'border-meat-200');
+                        } else {
+                            panel.classList.add('hidden');
+                            panel.classList.remove('block');
+
+                            navBtn.classList.remove('bg-meat-800', 'text-white', 'shadow-sm');
+                            navBtn.classList.add('text-gray-600', 'hover:text-meat-800', 'hover:bg-meat-50');
+
+                            subBtn.classList.remove('bg-meat-800', 'text-white', 'ring-2', 'ring-meat-800');
+                            subBtn.classList.add('bg-white', 'text-meat-900', 'hover:bg-meat-50', 'border', 'border-meat-200');
+                        }
+                    });
+
+                    // Picu ulang animasi gulir untuk elemen yang baru muncul
+                    triggerScrollReveal();
+                }
+
+                // Toast Notifikasi
+                let toastTimeout;
+                function showToast(msg) {
+                    const toast = document.getElementById('toast-notification');
+                    const toastMsg = document.getElementById('toast-message');
+                    toastMsg.textContent = msg;
+
+                    toast.classList.remove('opacity-0', 'translate-y-4');
+                    clearTimeout(toastTimeout);
+                    toastTimeout = setTimeout(() => {
+                        toast.classList.add('opacity-0', 'translate-y-4');
+                    }, 2500);
+                }
+
+                // Efek Gulir (Intersection Observer untuk animasi muncul saat di-scroll)
+                function triggerScrollReveal() {
+                    const reveals = document.querySelectorAll('.reveal');
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('active');
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    reveals.forEach(el => observer.observe(el));
+                }
+
+                // Inisialisasi saat halaman dimuat
+                window.addEventListener('DOMContentLoaded', () => {
+                    renderProducts();
+                    updateCartUI();
+                    triggerScrollReveal();
+
+                    // Animasi Splash Screen saat masuk website
+                    const progress = document.getElementById('splash-progress');
+                    const splash = document.getElementById('splash-screen');
+
+                    setTimeout(() => {
+                        if (progress) progress.style.width = '100%';
+                    }, 100);
+
+                    setTimeout(() => {
+                        if (splash) {
+                            splash.classList.add('opacity-0', 'pointer-events-none');
+                            setTimeout(() => splash.remove(), 700);
+                        }
+                    }, 1500);
+                });
+            </script>
+        </body>
+        </html> 
